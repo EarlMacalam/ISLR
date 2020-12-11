@@ -1,0 +1,117 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[margin=1in]{geometry}
+\usepackage[none]{hyphenat}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\title{Notes on Linear Regression}
+\author{Earl Patrick B. Macalam}
+\date{\today}
+\maketitle
+
+\section{Questions that Regression can Address}
+
+\begin{enumerate}
+\item Is there a relationship between advertising budget and sales?
+
+\item How strong is the relationship between advertising budget and sales? 
+
+\item Which media contribute to sales?
+
+\item How accurately can we estimate the effect of each medium on sales? For every 
+
+\item How accurately can we predict future sales?
+
+\item Is the relationship linear?
+
+\item Is there synergy among the advertising media?
+\end{enumerate}
+
+\section{Assessing the Accuracy of the Model}
+\begin{enumerate}
+\item Residual Standard Error (RSE)
+\begin{itemize}
+\item an estimate of the standard deviation of $\epsilon$. Roughly speaking, it is the average amount that the response will deviate from the true regression line
+
+\item If the RSE is 3.26 then actual sales in each market deviate from the true regression line by approximately 3,260 units, on average.
+
+\item If the predictions obtained using the model are very close to the
+true outcome values, that is, if $\hat{y_i} \approx y_i$ for $i = 1, . . . , n$ then RSE will be small, and we can conclude that the model fits the data very well. 
+\end{itemize}
+
+\item $R^2$
+\begin{itemize}
+\item It takes the form of a proportion, the proportion of variance explained and so it always takes on a value between 0 and 1, and is independent of the scale of Y.
+
+\item An $R^2$ statistic that is close to 1 indicates that a large proportion of the variability in the response has been explained by the regression. 
+
+\item A number near 0 indicates that the regression did not explain much of the variability in the response; this might occur because the linear model is wrong, or the inherent error $\sigma^2$ is high, or both. 
+
+\item An $R^2$ was 0.61 under two-thirds of the variability in sales is explained by a linear regression on TV.
+\end{itemize}
+\end{enumerate}
+
+\section{Interpretation}
+\subsection{Simple Linear Regression}
+\begin{itemize}
+\item An additional \$1,000 spent on TV advertising is associated with selling approximately 47.5 additional units of the product
+\end{itemize}
+
+\subsection{Multiple Linear Regression}
+\begin{itemize}
+\item We interpret these results as follows: for a given amount of TV and newspaper advertising, spending an additional \$1,000 on radio advertising leads to an increase in sales by approximately 189 units.
+\end{itemize}
+
+\subsection{On p-value of $\beta$}
+\begin{itemize}
+\item We reject the null hypothesis, that is, we declare a relationship to exist between X and Y, if the p-value is small enough.
+
+\item Hence, if we see a small p-value, then we can infer that there is an association between the predictor and the response.
+\end{itemize}
+
+\section{Diagnostics}
+\begin{enumerate}
+
+\item The relationship between the IVs and the DV is linear.
+\begin{itemize}
+\item Use residual plot
+\end{itemize}
+
+\item There is no multicollinearity in your data. 
+\begin{itemize}
+\item VIF, $>10$ QUESTIONABLE
+\end{itemize}
+ 
+\item The values of the residuals are independent. 
+\begin{itemize}
+\item Durbin watson statistic and Breusch Godfrey Test
+\item 
+$H_0$: There is no correlation among the residuals.
+
+$H_a$: The residuals are autocorrelated
+\end{itemize}
+\item The variance of the residuals is constant. 
+\begin{itemize}
+\item Scale-Loc Plot
+\end{itemize}
+
+\item The values of the residuals are normally distributed. 
+\begin{itemize}
+\item Normal QQ plot
+\end{itemize}
+
+\item There are no influential cases biasing your model. 
+\begin{itemize}
+\item Cooks distance
+\end{itemize}
+\end{enumerate}
+
+\end{document}
