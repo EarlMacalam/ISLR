@@ -1,0 +1,77 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[margin=1in]{geometry}
+\usepackage[none]{hyphenat}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\title{Notes on Linear Discriminant Analysis}
+\author{Earl Patrick B. Macalam}
+\date{\today}
+\maketitle
+
+\section{Why Linear Discriminant Analysis?}
+
+\begin{enumerate}
+
+\item When the classes are well-separated, the parameter estimates for the logistic regression model are surprisingly unstable. Linear discriminant analysis does not suffer from this problem.
+
+\item If n is small and the distribution of the predictors X is approximately normal in each of the classes, the linear discriminant model is again more stable than the logistic regression model.
+
+\item Linear discriminant analysis is popular when we have more than two response classes.
+
+\end{enumerate}
+
+\section{Linear Discriminant Analysis}
+\begin{itemize}
+\item Uses Baye's Theorem for Classification.
+
+$$Pr(Y = k|X=x) = \frac{\pi_k f_k(x)}{\sum_{l=1}^{K} \pi_l f_l(x)}$$
+
+Where $\pi_k$ refers to the base probability of each class $k$ observed in your training data. In Bayes’ Theorem this is called the prior probability
+$$\pi_k = \frac{n_k}{n}$$
+
+The $f(x)$ above is the estimated probability of $x$ belonging to the class. A Gaussian distribution function is used for $f(x)$.
+
+\item Estimating $\mu_k$: $$\mu_k = \frac{1}{nk} \cdot \sum x$$
+Where $\mu_k$ is the mean value of $x$ for the class $k$, $n_k$ is the number of instances with class $k$.
+\item Estimating $\sigma^2$: $$\sigma^2 = \frac{1}{n-K} \cdot \sum (x - \mu)^2$$
+Where $\sigma^2$ is the variance across all inputs $x$, $n$ is the number of instances, $K$ is the number of classes and mu is the mean for input $x$.
+
+\item LDA makes predictions by estimating the probability that a new set of inputs belongs to each class. The class that gets the highest probability is the output class and a prediction is made.
+
+\end{itemize}
+
+\section{Assumptions}
+\begin{enumerate}
+\item That your data is Gaussian, that each variable is is shaped like a bell curve when plotted.
+\item That each attribute has the same variance, that values of each variable vary around the mean by the same amount on average.
+\end{enumerate}
+
+\section{Data Preparation}
+\begin{enumerate}
+\item \textbf{Classification Problems}. This might go without saying, but LDA is intended for classification problems where the output variable is categorical. LDA supports both binary and multi-class classification.
+
+\item \textbf{Gaussian Distribution}. The standard implementation of the model assumes a Gaussian distribution of the input variables. Consider reviewing the univariate distributions of each attribute and using transforms to make them more Gaussian-looking (e.g. log and root for exponential distributions and Box-Cox for skewed distributions).
+
+\item \textbf{Remove Outliers}. Consider removing outliers from your data. These can skew the basic statistics used to separate classes in LDA such the mean and the standard deviation.
+
+\item \textbf{Same Variance}. LDA assumes that each input variable has the same variance. It is almost always a good idea to standardize your data before using LDA so that it has a mean of 0 and a standard deviation of 1.
+\end{enumerate}
+
+\section{Extensions to LDA}
+\begin{enumerate}
+\item \textbf{Quadratic Discriminant Analysis (QDA)}. Each class uses its own estimate of variance (or covariance when there are multiple input variables).
+
+\item \textbf{Flexible Discriminant Analysis (FDA)}. Where non-linear combinations of inputs is used such as splines.
+
+\item \textbf{Regularized Discriminant Analysis (RDA)}. Introduces regularization into the estimate of the variance (actually covariance), moderating the influence of different variables on LDA.
+\end{enumerate}
+\end{document}
