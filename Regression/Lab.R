@@ -122,6 +122,31 @@ contrasts (ShelveLoc)
 # lower sales than a good shelving location.
 
 
+# Assumptions -------------------------------------------------------------
+
+# Assumption #1: The relationship between the IVs and the DV is linear (residual vs fitted)
+plot(mlg1) # line almost straight. linearity assumption met
+
+
+# Assumption #2: There is no multicollinearity in your data. (VIF, >10 QUESTIONABLE)
+vif(mlg1) # Doesnt exceed 10, assumption check
+
+# Assumption #3: The values of the residuals are independent. (Durbin watson statistic)
+#The null hypothesis is that there is no autocorrelation of any order up to p.
+# H0 (null hypothesis): There is no correlation among the residuals.
+# HA (alternative hypothesis): The residuals are autocorrelated
+BreuschGodfreyTest(mlg1) # Met
+
+# Assumption #4: The variance of the residuals is constant. 
+plot(mlg1) # Met
+
+# Assumption #5: The values of the residuals are normally distributed. 
+plot(mlg1) # Met
+
+# Assumption #6: There are no influential cases biasing your model. 
+plot(mlg1) # Met
+View(cooks.distance(mlg1)) # Met
+
 # Functions ---------------------------------------------------------------
 
 LoadLibraries = function (){
